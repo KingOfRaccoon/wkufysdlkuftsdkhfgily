@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import com.example.myapplication.Profile.disease
-import com.sun.org.apache.xalan.internal.lib.ExsltMath.random
 
 
 object TrainProgramm {
@@ -29,11 +28,11 @@ object TrainProgramm {
         Muscle("Абдоминальные мышцы")//19
     )
     val listchoose: List<MuscleGroup> = listOf(
-        MuscleGroup("Ноги",  listOf(listMuscle[4], listMuscle[5], listMuscle[8], listMuscle[9], listMuscle[10], listMuscle[11],listMuscle[12], listMuscle[16], listMuscle[18])),
+        MuscleGroup("Ноги",  listOf(listMuscle[4], listMuscle[5], listMuscle[8], listMuscle[9], listMuscle[10], listMuscle[11], listMuscle[12], listMuscle[16], listMuscle[18])),
         MuscleGroup("Руки",  listOf(listMuscle[1], listMuscle[3], listMuscle[10])),
         MuscleGroup("Спина", listOf(listMuscle[2], listMuscle[6], listMuscle[7], listMuscle[17])),
         MuscleGroup("Грудь", listOf(listMuscle[0])),
-        MuscleGroup("Пресс", listOf(listMuscle[14],listMuscle[15], listMuscle[19]))
+        MuscleGroup("Пресс", listOf(listMuscle[14], listMuscle[15], listMuscle[19]))
     )
 
 
@@ -49,7 +48,7 @@ object TrainProgramm {
         Excercise("Жим двумя ногами", arrayOf(listMuscle[8], listMuscle[4], listMuscle[11], listMuscle[12], listMuscle[4])), //8
         Excercise("Сгибание рук на бицепс-машине", arrayOf(listMuscle[3])), //9
         Excercise("Сгибания в пресс-машине", arrayOf(listMuscle[15], listMuscle[14], listMuscle[13])), //10
-        Excercise("Выпады", arrayOf(listMuscle[8], listMuscle[4], listMuscle[16] )), //11
+        Excercise("Выпады", arrayOf(listMuscle[8], listMuscle[4], listMuscle[16])), //11
         Excercise("Румынская тяга", arrayOf(listMuscle[8], listMuscle[4], listMuscle[6])), //12
         Excercise("Гиперэкстензия", arrayOf(listMuscle[4], listMuscle[5])), //13
         Excercise("Обратная гиперэкстензия", arrayOf(listMuscle[4], listMuscle[5], listMuscle[17])), //14
@@ -106,30 +105,30 @@ object TrainProgramm {
         }
         return actual
     }
-    fun checkExerciseChoose(muscle: List<Muscle>? = null): MutableList<Excercise>{
-       // checkExercise(disease)
+
+    fun checkExerciseChoose(muscle: List<Muscle>? = null): MutableList<Excercise> {
         var actual1 = listExcercise.clone().toMutableList()
-        if (muscle != null){
+        if (muscle != null) {
             muscle.forEach { ti ->
-                repeat(actual1.size){
-                    actual1.removeAll { (it.checkChoose(ti)) }
+                repeat(actual1.size) {
+                    actual1.removeIf { !it.muscles.contains(ti) }
                 }
             }
         }
         return actual1
     }
+
+
 }
-//}
-//    fun checkAll(disease: List<Disease>? = null, ibm: Float):MutableList<Excercise>{
-//
-//        return checkExerciseIMB(checkExercise(disease),ibm)
-//
-//    }
-fun main(){
+fun main() {
     var n = (0..8).random()
     Profile.disease = mutableListOf(TrainProgramm.listBroke[n])
     var i1 = TrainProgramm.listExcercise.clone().toMutableList()
     TrainProgramm.checkExercise(listOf(TrainProgramm.listBroke[n])).forEach { println(it) }
-    println("1234567 "+TrainProgramm.listBroke[n])
+    println("1234567 " + TrainProgramm.listBroke[n])
     TrainProgramm.checkExerciseChoose(TrainProgramm.listchoose[1].muscles).forEach { println(it) }
+    var array = mutableListOf(1,2,3,4,5,7)
+    array.removeIf{ array.contains(7) }
+    array.forEach { println(it) }
 }
+
